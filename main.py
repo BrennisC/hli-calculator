@@ -203,7 +203,6 @@ class HLIAnalysisApp:
 
     def importar_datos_excel(self):
         try:
-
             # Abrir diálogo para seleccionar archivo
             archivo = filedialog.askopenfilename(
                 filetypes=[("Archivos Excel", "*.xlsx")]
@@ -211,7 +210,7 @@ class HLIAnalysisApp:
 
             if archivo:
                 # Importar datos desde Excel
-                self.datos = pd.read_excel(archivo)
+                self.datos = pd.read_excel(archivo, engine="openpyxl")
                 # Actualizar gráficos
                 self.mostrar_hli_linea()
         except Exception as e:
