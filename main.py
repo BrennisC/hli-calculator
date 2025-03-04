@@ -97,6 +97,7 @@ class HLIAnalysisApp:
             ("Temp vs HLI", self.mostrar_scatter_temp_hli),
             ("Distribución de Riesgo", self.mostrar_distribucion_riesgo),
             ("Exportar a Excel", self.exportar_excel),
+            ("Importar desde Excel", self.importar_datos_excel),
         ]
 
         for texto, comando in botones:
@@ -201,7 +202,20 @@ class HLIAnalysisApp:
             messagebox.showerror("Error", f"No se pudo exportar: {str(e)}")
 
     def importar_datos_excel(self):
-        pass
+        try:
+
+            # Abrir diálogo para seleccionar archivo
+            archivo = filedialog.askopenfilename(
+                filetypes=[("Archivos Excel", "*.xlsx")]
+            )
+
+            if archivo:
+                # Importar datos desde Excel
+                self.datos = pd.read_excel(archivo)
+                # Actualizar gráficos
+                self.mostrar_hli_linea()
+        except Exception as e:
+            messagebox.showerror("Error", f"No se pudo importar: {str(e)}")
 
     def limpiar_frame(self):
         """Limpia el frame de gráficos"""
